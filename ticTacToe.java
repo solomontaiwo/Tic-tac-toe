@@ -22,18 +22,36 @@ public class ticTacToe {
 
             System.out.println("\nEnter your placement (1-9):");
             int playerPos = scan.nextInt();
+            while (playerPositions.contains(playerPos) || cpuPositions.contains(playerPos)) {
+                System.out.println("Position taken! Entere a correct position");
+                playerPos = scan.nextInt();
+            }
 
             placePiece(gameBoard, playerPos, "player");
 
+            String result = checkWinner();
+            if (result.length() > 0) {
+                printGameBoard(gameBoard);
+                System.out.println(result);
+                break;
+            }
+
             Random rand = new Random();
             int cpuPos = rand.nextInt(9) + 1;
+            while (playerPositions.contains(cpuPos) || cpuPositions.contains(cpuPos)) {
+                cpuPos = rand.nextInt(9) + 1;
+            }
             placePiece(gameBoard, cpuPos, "cpu");
 
             System.out.println("");
             printGameBoard(gameBoard);
 
-            String result = checkWinner();
-            System.out.println(result);
+            result = checkWinner();
+            if (result.length() > 0) {
+                printGameBoard(gameBoard);
+                System.out.println(result);
+                break;
+            }
 
         }
 
